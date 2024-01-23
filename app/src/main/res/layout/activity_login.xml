@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login"
+    android:layoutDirection="rtl"
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="290dp"
+        >
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        >
+<!--        <pl.droidsonroids.gif.GifImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="271dp"-->
+<!--            android:src="@drawable/login"-->
+<!--            />-->
+
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="تسحيدخول"
+            android:layout_gravity="start"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#272827"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="البريد الإلكتروني"
+            android:layout_gravity="start"
+            android:textSize="13sp"
+            android:textColor="#272827"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:padding="10dp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/editext_border"
+            android:hint="Khalil@gmail.com"
+            android:minHeight="48dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="كلمة المرور"
+            android:layout_gravity="start"
+            android:textSize="13sp"
+            android:textColor="#272827"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Khalil*1254"
+            android:password="true"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:background="@drawable/editext_border"
+            />
+
+        <TextView
+            android:layout_width="102dp"
+            android:layout_height="23dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:layout_margin="20dp"
+            android:onClick="forgetPass"
+            android:text="نسيت كلمة المرور"
+            android:textSize="13sp" />
+        <!--    button-->
+        <Button
+            android:layout_width="328dp"
+            android:layout_height="56dp"
+            android:background="@drawable/button"
+            android:text="تسحيل دخول"
+            android:textSize="25sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:id="@+id/butdef1"
+            android:onClick="sing_in"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <View
+                android:id="@+id/rectangle_3"
+                android:layout_width="110dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="40dp"
+                android:layout_height="1dp"
+                android:background="@drawable/rectangle_3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="أو التسجيل من خلال"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="15dp"
+                />
+
+            <View
+                android:id="@+id/rectangle_4"
+                android:layout_width="110dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_height="1dp"
+                android:background="@drawable/rectangle_3" />
+
+        </LinearLayout>
+        <com.google.android.gms.common.SignInButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/google"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:minHeight="48dp"
+            android:onClick="Signup"
+            android:text="ليس لديك حساب ؟ قم بالتسجيل الآن" />
+    </LinearLayout>
+</FrameLayout>

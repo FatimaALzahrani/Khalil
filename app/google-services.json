@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1096894554259",
+    "project_id": "khalil-51ead",
+    "storage_bucket": "khalil-51ead.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096894554259:android:1c193a7b823beff17e2d66",
+        "android_client_info": {
+          "package_name": "com.quran.khalil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGBSFz6GttYmx0SIaJ1DQyTFwqs_JqL0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
