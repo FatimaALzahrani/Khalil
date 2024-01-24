@@ -4,18 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:gravity="center"
+    android:clipToOutline="true"
+    android:background="@drawable/start"
     android:layout_gravity="center">
 
-    <TextView
+    <ImageView
         android:id="@+id/txvResult"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:textColor="#000"
-        android:textSize="26sp"
-        android:textStyle="normal"
-        android:text="خليل"
-        android:gravity="center"
+        android:src="@drawable/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

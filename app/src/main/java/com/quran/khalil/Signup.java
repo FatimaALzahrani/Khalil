@@ -110,7 +110,7 @@ public class Signup extends AppCompatActivity {
             edtFullName.setText("");
             n++;
         } else {
-            edtFullName.setBackground(this.getResources().getDrawable(R.drawable.yes_border));
+            edtFullName.setBackground(ContextCompat.getDrawable(this, R.drawable.yes_border));
         }
         if (ph.equals("")) {
             edtMobile.setError("رقم الجوال مطلوب");

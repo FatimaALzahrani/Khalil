@@ -15,4 +15,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "khalil"
 include(":app")
- 
+//project(":sceneform").projectDir=new File("sceneformsrc/sceneform")
+//
+//include (":sceneformux")
+//project(":sceneformux").projectDir=new File("sceneformux/ux")
