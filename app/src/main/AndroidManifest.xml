@@ -6,14 +6,17 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Permission for recording audio and storage of audio in users device -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.STORAGE" />
-    <uses-feature android:name="android.hardware.camera.ar"/>
+
+    <uses-feature android:name="android.hardware.camera.ar" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -24,6 +27,12 @@
         android:theme="@style/Theme.Khalil"
         tools:replace="android:icon"
         tools:targetApi="34">
+        <activity
+            android:name=".TestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Similarty"
+            android:exported="false" />
         <activity
             android:name=".AR"
             android:exported="false" />
@@ -63,7 +72,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.google.ar.core" android:value="required"/>
+
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="required" />
     </application>
 
 </manifest>
