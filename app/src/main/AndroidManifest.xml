@@ -28,6 +28,9 @@
         tools:replace="android:icon"
         tools:targetApi="34">
         <activity
+            android:name=".Menue"
+            android:exported="false" />
+        <activity
             android:name=".AyahSimilarty"
             android:exported="false" />
         <activity

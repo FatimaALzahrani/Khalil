@@ -17,4 +17,6 @@
     <string name="المسجل">ادخل البريد الإلكتروني المسجل</string>
     <string name="إعادة_التعيين">إرسال رابط إعادة التعيين</string>
     <string name="تتذكر">هل تتذكر كلمة المرور ؟ تسجيل الدخول</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

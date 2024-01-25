@@ -71,6 +71,7 @@ dependencies {
 
     // Alternatively, use ArSceneView without the UX dependency.
     implementation ("com.google.ar.sceneform:core:1.11.0")
+    implementation("com.etebarian:meow-bottom-navigation-java:1.2.0")
 }
 //
 sceneform.asset("sampledata/TocoToucan.obj",
