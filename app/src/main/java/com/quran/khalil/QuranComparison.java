@@ -128,8 +128,8 @@ public class QuranComparison {
             int surahNumber2 = verse2.getInt("surah");
             int ayahNumber2 = verse2.getInt("numberInSurah");
 
-            // إنشاء مرجع لجدول "Similarty" في Realtime Database
-            DatabaseReference similarityRef = FirebaseDatabase.getInstance().getReference().child("Similarty");
+            // إنشاء مرجع لجدول "SimilartyTest" في Realtime Database
+            DatabaseReference similarityRef = FirebaseDatabase.getInstance().getReference().child("SimilartyTest");
 
             // إضافة رقم السورة ورقم الآية للآية الأولى
             similarityRef.child(String.valueOf(surahNumber1))
@@ -145,7 +145,7 @@ public class QuranComparison {
                     .child(String.valueOf(ayahNumber1))
                     .setValue(surahNumber1);
 
-            System.out.println("Added similar verses to the Similarty table: "
+            System.out.println("Added similar verses to the SimilartyTest table: "
                     + surahNumber1 + ":" + ayahNumber1 + " - " + surahNumber2 + ":" + ayahNumber2);
         } catch (Exception e) {
             e.printStackTrace();

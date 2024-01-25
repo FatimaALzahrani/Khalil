@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
@@ -31,29 +32,63 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Scanner;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class Recitation extends AppCompatActivity {
     int err=0;
     int prevEr=0;
     String all="";
     private TextToSpeech textToSpeech;
     private TextView txvResult;
-    private int currentAyah = 1;  // Keep track of the current verse number
+    private TextView Result;
+    private TextView Word;
+    private TextView Mis;
+    private int currentAyah;  // Keep track of the current verse number
     private String jsonData;
     private String surahKey;
     private DatabaseReference userRef;
     private int currentAttempts;
     private int currentMistakes;
+    private int currentWords;
+    private int Words=0;
+    private int ayahNumber;
+    private TextView SurahName;
+    private String[] surahNames;
+    private double per;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_recitation);
         jsonData = readRawResource(R.raw.quran_data);
         txvResult = findViewById(R.id.txvResult);
+        Result = findViewById(R.id.Result);
+        Word = findViewById(R.id.words);
+        Mis = findViewById(R.id.mistake);
+        SurahName = findViewById(R.id.Surah);
         String currentUsername = "Fatimah_Alzahrani";
         Intent intent = getIntent();
         int surahNumber = intent.getIntExtra("SURAH_NUMBER", 1);
+        String ayahNumberStr = intent.getStringExtra("Ayah_NUMBER");
+        int ayahNumber = ayahNumberStr != null ? Integer.parseInt(ayahNumberStr) : 1;
+
+        surahNames = new String[]{
+                "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
+                "هود", "يوسف", "الرعد", "ابراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
+                "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
+                "لقمان", "السجدة", "الأحزاب", "سبإ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
+                "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
+                "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
+                "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
+                "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبإ", "النازعات", "عبس",
+                "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
+                "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
+                "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
+                "المسد", "الإخلاص", "الفلق", "الناس"
+        };
+        SurahName.setText(surahNames[surahNumber-1]+"سورة ");
+        currentAyah=ayahNumber;
         surahKey = String.valueOf(surahNumber);
         userRef = FirebaseDatabase.getInstance().getReference().child("Dashboard").child("Quran").child(currentUsername);
         userRef.child("bySurah").child(surahKey).child("attempts").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -90,6 +125,24 @@ public class Recitation extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        
+        //نجيب عدد الكلمات ونحدثه
+        userRef.child("Words").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    currentWords = dataSnapshot.getValue(Integer.class);
+                    userRef.child("Words").setValue(currentWords);
+                } else {
+                    userRef.child("Words").setValue(0);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
 
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -99,8 +152,7 @@ public class Recitation extends AppCompatActivity {
                     if (langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Toast.makeText(Recitation.this, "اللغة غير مدعومة", Toast.LENGTH_SHORT).show();
                     } else {
-                        int defaultAyah = 1;
-                        convertTextToSpeech(getAyahText(defaultAyah));
+                        convertTextToSpeech(getAyahText(currentAyah));
 
                         textToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                             @Override
@@ -184,22 +236,42 @@ public class Recitation extends AppCompatActivity {
                     }
                     currentAyah++;
                     if(err==3) {
-                        if(getAudioFileName(currentAyah)!=null)
+                        if(!getAudioFileName(currentAyah).equals(""))
                             playAudio(getAudioFileName(currentAyah));
                         else
-                            convertTextToSpeech(getAyahText(currentAyah));
+                            convertTextToSpeech(getAyahTextOthman(currentAyah));
                         err=0;
                         prevEr++;
                         currentMistakes++;
                         userRef.child("bySurah").child(surahKey).child("attemptsDetails").child("attempt_" + (currentAttempts + 1)).child("Mistake").setValue(prevEr);
                         userRef.child("Mistakes").setValue(currentMistakes);
+                        Mis.setText("✖️"+String.valueOf(prevEr));
+                        per=(1 - (double) prevEr / Words) * 100;
+                        Result.setText(String.format("%.2f%%", per));
                     }else if(currentAyah <= getMaxAyah() && err==0){
                         convertTextToSpeech("");
+                        String [] numberOfWords =getAyahText(currentAyah).split(" ");
+                        currentWords+=numberOfWords.length;
+                        Words++;
                         err=0;
+                        userRef.child("Words").setValue(currentWords);
+                        userRef.child("bySurah").child(surahKey).child("attemptsDetails").child("attempt_" + (currentAttempts + 1)).child("Words").setValue(Words);
+                        Word.setText("✔️"+Words);
+                        per=(1 - (double) prevEr / Words) * 100;
+                        if(prevEr==0)
+                            per=100;
+                        Result.setText(String.format("%.2f%%", per));
+                        userRef.child("Surah").child(surahKey).child(String.valueOf(currentAyah));
                     }else if (err>0){
                         convertTextToSpeech("إنتبه");
                     } else {
                         Toast.makeText(this, "انتهت السورة "+err, Toast.LENGTH_SHORT).show();
+                        if(ayahNumber==1){
+                            userRef.child("bySurah").child(surahKey).child("Done").setValue("Yes");
+                            new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("مُبارك !🎉")
+                                    .setContentText("لقد انتهيت من سورة "+surahNames[Integer.parseInt(surahKey)-1]).show();
+                        }
                     }
                 }
                 break;

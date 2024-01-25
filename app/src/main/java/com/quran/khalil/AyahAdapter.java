@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class VerseAdapter extends RecyclerView.Adapter<VerseAdapter.VerseViewHolder> {
+public class AyahAdapter extends RecyclerView.Adapter<AyahAdapter.VerseViewHolder> {
 
-    private List<String> verseList;
+    private List<Surah> verseList;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public VerseAdapter(List<String> verseList, OnItemClickListener listener) {
+    public AyahAdapter(List<Surah> verseList, OnItemClickListener listener) {
         this.verseList = verseList;
         this.listener = listener;
 
@@ -34,7 +34,7 @@ public class VerseAdapter extends RecyclerView.Adapter<VerseAdapter.VerseViewHol
 
     @Override
     public void onBindViewHolder(@NonNull VerseViewHolder holder, int position) {
-        String verse = verseList.get(position);
+        Surah verse = verseList.get(position);
         holder.bind(verse, listener);
     }
 
@@ -51,8 +51,8 @@ public class VerseAdapter extends RecyclerView.Adapter<VerseAdapter.VerseViewHol
             verseTextView = itemView.findViewById(R.id.surahNumberTextView);
         }
 
-        public void bind(String verse,final OnItemClickListener listener) {
-            verseTextView.setText(verse);
+        public void bind(Surah verse,final OnItemClickListener listener) {
+            verseTextView.setText(verse.getVerse());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

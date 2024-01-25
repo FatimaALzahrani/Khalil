@@ -28,10 +28,19 @@
         tools:replace="android:icon"
         tools:targetApi="34">
         <activity
+            android:name=".AyahSimilarty"
+            android:exported="false" />
+        <activity
+            android:name=".SurahSimilarty"
+            android:exported="false" />
+        <activity
+            android:name=".Similaty"
+            android:exported="false" />
+        <activity
             android:name=".TestActivity"
             android:exported="false" />
         <activity
-            android:name=".Similarty"
+            android:name=".SimilartyTest"
             android:exported="false" />
         <activity
             android:name=".AR"

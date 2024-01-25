@@ -64,16 +64,30 @@ public class TestActivity extends AppCompatActivity {
 
         // استرجاع نوع الاختبار المحدد
         String selectedTest = getIntent().getStringExtra("selectedTest");
+        String selectedPart = getIntent().getStringExtra("part");
 
         // استرجاع البيانات من Firebase وعرض السؤال الأول
-        if ("اختبار في الجزء".equals(selectedTest)
-                || "اختبار في السورة".equals(selectedTest)
-                || "اختبار في القرآن كامل".equals(selectedTest)) {
-            DatabaseReference testRef = databaseReference.child("Question");
+        if ("اختبار في الجزء".equals(selectedTest)) {
+            DatabaseReference testRef = databaseReference.child("Question").child(selectedPart);
             testRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     populateQuestionList(snapshot);
+                    displayQuestion();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // التعامل مع الأخطاء إذا لزم الأمر
+                }
+            });
+        }else if( "اختبار في السورة".equals(selectedTest)||"اختبار في القرآن كامل".equals(selectedTest)){
+            DatabaseReference testRef = databaseReference.child("Question").child("SimilartyTest")
+                    .child("1");
+            testRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    populateQuestionList2(snapshot);
                     displayQuestion();
                 }
 
@@ -103,6 +117,39 @@ public class TestActivity extends AppCompatActivity {
 
     private void populateQuestionList(DataSnapshot dataSnapshot) {
         questionList = new ArrayList<>();
+            for (DataSnapshot surahSnapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot ayahSnapshot : surahSnapshot.getChildren()) {
+                    String selectedSurah = ayahSnapshot.getKey();
+                    String verse = ayahSnapshot.getValue().toString();
+                    Object ayahValue = ayahSnapshot.getValue();
+
+                    if (ayahValue instanceof Map) {
+                        for (Object verseObject : ((Map<String, Object>) ayahValue).values()) {
+                             verse = verseObject.toString();
+                        }
+                    }
+                    List<String> options = new ArrayList<>();
+                    for (DataSnapshot optionSnapshot : surahSnapshot.getChildren()) {
+                        options.add(surahNames[Integer.parseInt(optionSnapshot.getKey())-1]);
+                    }
+                    Question question = new Question(verse, surahNames[Integer.parseInt(selectedSurah)-1], options);
+                    questionList.add(question);
+
+
+                    // خلط قائمة الأسئلة
+                    Collections.shuffle(questionList);
+
+                    // خلط خيارات كل سؤال
+                    for (Question question2 : questionList) {
+                        Collections.shuffle(question2.getOptions());
+                    }
+
+                }
+            }
+    }
+
+    private void populateQuestionList2(DataSnapshot dataSnapshot) {
+        questionList = new ArrayList<>();
         for (DataSnapshot partSnapshot : dataSnapshot.getChildren()) {
             for (DataSnapshot surahSnapshot : partSnapshot.getChildren()) {
                 for (DataSnapshot ayahSnapshot : surahSnapshot.getChildren()) {
@@ -112,7 +159,7 @@ public class TestActivity extends AppCompatActivity {
 
                     if (ayahValue instanceof Map) {
                         for (Object verseObject : ((Map<String, Object>) ayahValue).values()) {
-                             verse = verseObject.toString();
+                            verse = verseObject.toString();
                         }
                     }
                     List<String> options = new ArrayList<>();

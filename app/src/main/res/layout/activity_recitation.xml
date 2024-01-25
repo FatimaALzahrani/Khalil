@@ -9,6 +9,17 @@
     android:paddingBottom="16dp"
     android:orientation="vertical"
     tools:context=".Recitation">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Surah"
+        android:text="السورة"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:textColor="#750F4C"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        />
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,11 +37,57 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         />
     </ScrollView>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="-100dp"
+        android:layout_gravity="center"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mistake"
+                android:text="✖️0"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Result"
+            android:text=""
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#750F4C"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/words"
+                android:text="✔️0"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="-70dp"
         android:layout_gravity="center"
         >
     <Button
@@ -44,6 +101,7 @@
         android:layout_marginTop="16dp"
         />
 
+
     <Button
         android:id="@+id/stopButton"
         android:layout_width="wrap_content"
@@ -52,5 +110,6 @@
         android:layout_below="@id/startButton"
         android:layout_marginTop="16dp"
         android:enabled="false"/>
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>
