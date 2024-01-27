@@ -28,6 +28,21 @@
         tools:replace="android:icon"
         tools:targetApi="34">
         <activity
+            android:name=".SimilartyAyah"
+            android:exported="false" />
+        <activity
+            android:name=".SimlartyPage"
+            android:exported="false" />
+        <activity
+            android:name=".SimilatyKatlog"
+            android:exported="false" />
+        <activity
+            android:name=".FinalSimilarty"
+            android:exported="false" />
+        <activity
+            android:name=".ResultsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Menue"
             android:exported="false" />
         <activity

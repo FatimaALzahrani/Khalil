@@ -29,13 +29,13 @@ public class Menue extends AppCompatActivity {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
                 Fragment fragment;
-                if (item.getId() == 2) {
-                    fragment=new Idea();
-                }else if (item.getId() == 3) {
-                    fragment=new Leaderboard;
-                }else if (item.getId() == 4) {
-                    fragment=new Profile();
-                } else
+//                if (item.getId() == 2) {
+//                    fragment=new Idea();
+//                }else if (item.getId() == 3) {
+//                    fragment=new Leaderboard;
+//                }else if (item.getId() == 4) {
+//                    fragment=new Profile();
+//                } else
                     fragment = new Home();
                 loadFragment(fragment);
             }

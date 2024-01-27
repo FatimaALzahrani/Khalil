@@ -1,0 +1,38 @@
+<!-- item_similarity.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layoutDirection="rtl"
+    android:padding="15dp"
+    android:layout_marginTop="10dp"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/content3"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/surahNumTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="سورة"
+        />
+
+
+    <TextView
+        android:id="@+id/ayahTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="الآيه"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="25dp"/>
+
+    <TextView
+        android:id="@+id/ayahNumTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="آيه " />
+</LinearLayout>
