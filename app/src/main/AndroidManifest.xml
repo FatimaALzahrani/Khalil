@@ -28,6 +28,9 @@
         tools:replace="android:icon"
         tools:targetApi="34">
         <activity
+            android:name=".Test"
+            android:exported="false" />
+        <activity
             android:name=".SimilartyAyah"
             android:exported="false" />
         <activity

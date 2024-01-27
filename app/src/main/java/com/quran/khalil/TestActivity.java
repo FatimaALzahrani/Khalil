@@ -67,8 +67,8 @@ public class TestActivity extends AppCompatActivity {
         String selectedPart = getIntent().getStringExtra("part");
 
         // استرجاع البيانات من Firebase وعرض السؤال الأول
-        if ("اختبار في الجزء".equals(selectedTest)) {
-            DatabaseReference testRef = databaseReference.child("Question").child(selectedPart);
+//        if ("اختبار في الجزء".equals(selectedTest)) {
+            DatabaseReference testRef = databaseReference.child("Question").child("30");
             testRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -81,22 +81,22 @@ public class TestActivity extends AppCompatActivity {
                     // التعامل مع الأخطاء إذا لزم الأمر
                 }
             });
-        }else if( "اختبار في السورة".equals(selectedTest)||"اختبار في القرآن كامل".equals(selectedTest)){
-            DatabaseReference testRef = databaseReference.child("Question").child("SimilartyTest")
-                    .child("1");
-            testRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    populateQuestionList2(snapshot);
-                    displayQuestion();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    // التعامل مع الأخطاء إذا لزم الأمر
-                }
-            });
-        }
+//        }else if( "اختبار في السورة".equals(selectedTest)||"اختبار في القرآن كامل".equals(selectedTest)){
+//            DatabaseReference testRef = databaseReference.child("Question").child("SimilartyTest")
+//                    .child("1");
+//            testRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    populateQuestionList2(snapshot);
+//                    displayQuestion();
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    // التعامل مع الأخطاء إذا لزم الأمر
+//                }
+//            });
+//        }
 
         surahNames = new String[]{
                 "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
@@ -187,7 +187,7 @@ public class TestActivity extends AppCompatActivity {
         if (currentQuestionIndex < questionList.size()) {
             // استمرار عرض السؤال والخيارات
             Question currentQuestion = questionList.get(currentQuestionIndex);
-            questionTextView.setText("الآية: " + currentQuestion.getVerse() + " - اختر السورة الصحيحة:");
+            questionTextView.setText("الآية: " + currentQuestion.getVerse()+" \n- اختر السورة الصحيحة:");
 
             // تحقق من وجود الإجابة في الخيارات
             List<String> options = currentQuestion.getOptions();
@@ -235,7 +235,7 @@ public class TestActivity extends AppCompatActivity {
             });
         } else {
             // إظهار النتيجة أو أي شيء آخر
-            questionTextView.setText("انتهى الاختبار. نقاطك: " + score);
+            questionTextView.setText("انتهى الاختبار.\n نقاطك: " + score);
             option1Button.setVisibility(View.INVISIBLE);
             option2Button.setVisibility(View.INVISIBLE);
             option3Button.setVisibility(View.INVISIBLE);
