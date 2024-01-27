@@ -94,7 +94,7 @@ public class Recitation extends AppCompatActivity {
         SurahName.setText(" سورة "+surahNames[surahNumber-1]);
         currentAyah=ayahNumber;
         surahKey = String.valueOf(surahNumber);
-        userRef = FirebaseDatabase.getInstance().getReference().child("Dashboard").child("Quran").child(currentUseremail);
+        userRef = FirebaseDatabase.getInstance().getReference().child("Dashboard").child("Quran").child(currentUsername);
         userRef.child("userName").setValue(currentUsername);
         userRef.child("bySurah").child(surahKey).child("attempts").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -227,14 +227,23 @@ public class Recitation extends AppCompatActivity {
                     String userSpeech = result.get(0);
 
                     String ayahText = getAyahText(currentAyah);
+                    String ayahText2 = getAyahText(currentAyah);
+                    String oth=getAyahTextOthman(currentAyah);
+                    String tjoid="";
+                    if(oth.contains("ِنْ رَ")){
+                        ayahText2 = ayahText.replace("ن ر", "ر");
+                        tjoid="عندما يأتي حرف الراء بعد النون الساكنه تنطق جرفًا واحدً مُشدد";
 
+                    }
 
-                    if (userSpeech.equals(ayahText)) {
+                    if (userSpeech.equals(ayahText2)) {
                         Toast.makeText(this, "تمت المطابقة!", Toast.LENGTH_SHORT).show();
                         all+=getAyahTextOthman(currentAyah);
                         all+="﴿"+currentAyah+"﴾";
                         txvResult.setText(all);
                         err=0;
+                    }else if(userSpeech.equals(ayahText)){
+                        convertTextToSpeech(tjoid);
                     } else {
                         currentAyah--;
                         err++;

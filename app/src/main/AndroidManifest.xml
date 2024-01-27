@@ -28,6 +28,12 @@
         tools:replace="android:icon"
         tools:targetApi="34">
         <activity
+            android:name=".DisplayServices"
+            android:exported="false" />
+        <activity
+            android:name=".Services"
+            android:exported="false" />
+        <activity
             android:name=".Test"
             android:exported="false" />
         <activity
